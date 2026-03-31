@@ -102,7 +102,7 @@ export class ReflectionService {
         default:
           actualReflectionRounds = 0;
       }
-      this.logger.info(`难度评估完成: ${difficulty}，将进行 ${actualReflectionRounds} 轮反思`);
+      this.logger.info(`难度评估完成：${difficulty}，将进行 ${actualReflectionRounds} 轮反思`);
     }
 
     // 提取实际内容（如果有难度评估字段）
@@ -110,7 +110,7 @@ export class ReflectionService {
     totalPromptTokens += initialResult.usage.prompt_tokens;
     totalCompletionTokens += initialResult.usage.completion_tokens;
 
-    this.logger.info(`初始回答生成完成，长度: ${originalResponse.length}`);
+    this.logger.info(`初始回答生成完成，长度：${originalResponse.length}`);
 
     // 如果反思轮数为 0，直接返回原始回答
     if (actualReflectionRounds === 0) {
@@ -152,7 +152,7 @@ export class ReflectionService {
       totalReflectionTokens += criticResult.usage.completion_tokens;
       totalPromptTokens += criticResult.usage.prompt_tokens;
 
-      this.logger.info(`第 ${round + 1} 轮评审意见: ${feedback.substring(0, 100)}...`);
+      this.logger.info(`第 ${round + 1} 轮评审意见：${feedback}`);
 
       // 第三步：根据评审意见生成改进后的回答
       const improvedMessages = this.buildGeneratorMessages(messages, currentResponse, feedback);
@@ -167,7 +167,7 @@ export class ReflectionService {
       totalPromptTokens += improvedResult.usage.prompt_tokens;
       totalCompletionTokens += improvedResult.usage.completion_tokens;
 
-      this.logger.info(`第 ${round + 1} 轮改进完成，新回答长度: ${currentResponse.length}`);
+      this.logger.info(`第 ${round + 1} 轮改进完成，新回答长度：${currentResponse.length}`);
 
       // 更新判别模型的消息，用于下一轮反思
       currentMessages = this.buildCriticMessages(messages, currentResponse);
@@ -351,7 +351,7 @@ ${response}
 ${userContent}
 ---- 生成模型回答 ----
 ${response}
----- 以下是另一位评审者给出的改进意见，请参考后给出新的回答。你不需要全盘接受所有建议，但需要认真考虑每一条并决定是否采纳 。回答请注意条理清晰，主次分明，结构合理 ----
+---- 以下是另一位评审者给出的改进意见，请参考后给出新的回答。你不需要全盘接受所有建议，但需要认真考虑每一条并决定是否采纳。回答请注意条理清晰，主次分明，结构合理 ----
 ${feedback}`;
 
     return [
