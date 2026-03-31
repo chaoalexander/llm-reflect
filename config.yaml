@@ -1,0 +1,48 @@
+# LLM 反思模型配置文件
+# 请复制此文件并修改配置
+
+# 生成模型配置（用于生成回答）
+generator:
+  # 模型 API 地址，支持 OpenAI 兼容格式
+  base_url: "http://localhost:8080"
+  # API 密钥（如需）
+  api_key: ""
+  # 模型名称
+  model: "qwen3.5-9B"
+
+# 判别模型配置（用于评审生成的回答）
+# 可以与生成模型相同，也可以不同
+critic:
+  base_url: "http://localhost:8080"
+  api_key: ""
+  model: "qwen3.5-9B"
+
+# 反思轮数：每次请求进行几轮反思
+# 0 = 不使用反思模式，直接返回原始回答
+# 1, 2, 3... = 固定反思轮数
+# "auto" = 自动评估难度，根据难度决定反思轮数
+#   - simple: 0 轮（直接返回）
+#   - medium: 1 轮反思
+#   - hard: 2 轮反思
+reflection_rounds: 1
+
+# 日志配置
+logging:
+  # 是否启用日志
+  enabled: true
+  # 日志级别：debug | info | warn | error
+  level: "info"
+  # 日志文件路径
+  file: "./logs/reflection.log"
+
+# 输出格式：openai | raw
+# openai: 返回 OpenAI 兼容的 JSON 格式
+# raw: 返回纯文本内容
+output_format: "openai"
+
+# 服务配置
+server:
+  # 监听地址
+  host: "127.0.0.1"
+  # 监听端口
+  port: 3030
